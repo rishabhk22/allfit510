@@ -1,9 +1,9 @@
-#allfit
+# allfit
 
-##Project Objectives
+## Project Objectives
 To evelop a user-friendly web-app to create personalized workout plans by blending different fitness methods or exercise types such as yoga, weight training, cardio, calisthenics, and stretching. This is to enable users to have a holistic fitness routine to improve different aspects of their health such as strength, mobility, flexibility, endurance to provide balanced overall fitness. 
 
-##Target
+## Target
 Busy professionals with some experince in workout or fitness traning that want to diversify their fitness routine to be more holistic.
 
 ## Primary Needs
