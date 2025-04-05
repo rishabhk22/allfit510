@@ -29,9 +29,9 @@ Busy professionals with some experince in workout or fitness traning that want t
 - Interactive web app that can run on desktop seamlessly and be accessed from anywhere in the world
 - A personalized, flexible, and holistic workout solution that gives the correct fitness routine as per user requirements and that users trust and enjoy engaging with
 
-##Timeline
+## Timeline
 
-| **Week** | **Milestone**                    | **Expectation**                                                                 |
+| **Week**   | **Milestone**                    | **Expectation**                                                                 |
 |----------|----------------------------------|----------------------------------------------------------------------------------|
 | Week 1   | Planning & Research              | Define MVP, user personas, feature list, and tech stack                         |
 | Week 2   | Wireframes & Architecture        | Create wireframes, app structure, and development setup                         |
