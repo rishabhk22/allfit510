@@ -46,7 +46,7 @@ Busy professionals with some experince in workout or fitness traning that want t
 | Week 7   | Launch Preparation               | Set up hosting, landing page, legal disclaimers, and analytics                  |
 | Week 8   | Soft Launch & Feedback           | Beta release, gather feedback, fix issues, and plan next iteration              |
 
-##Challenges:
+## Challenges:
 - Images and possible short videos to make it visual
 - Best way to take user input for preferences
 - Test for suitability of the workouts
