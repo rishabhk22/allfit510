@@ -52,7 +52,10 @@ Busy professionals with some experince in workout or fitness traning that want t
 - Test for suitability of the workouts
 - Accurately match time-slot and workout durations
 
+## Contact Information
 
+- **Project Manager:** Rishabh Kumar  – rkumar23@uw.edu – [GitHub: rishabhk22](https://github.com/rishabhk22)
+- **Lead Developer and UX/UI Designer:** Shareef Jasim – shareef.abdulnafaa@gmail.com – [GitHub: shareefjasim](https://github.com/shareefjasim)
 
 
 
