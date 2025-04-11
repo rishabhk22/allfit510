@@ -29,6 +29,10 @@ Busy professionals with some experince in workout or fitness traning that want t
 - Interactive web app that can run on desktop seamlessly and be accessed from anywhere in the world
 - A personalized, flexible, and holistic workout solution that gives the correct fitness routine as per user requirements and that users trust and enjoy engaging with
 
+## Initial UI 
+![alt text](https://github.com/rishabhk22/allfit510/blob/main/image.png "Initial UI")
+
+
 ## Timeline
 
 | **Week**   | **Milestone**                    | **Expectation**                                                                 |
@@ -41,6 +45,12 @@ Busy professionals with some experince in workout or fitness traning that want t
 | Week 6   | Testing & Progress Tracking      | QA testing, bug fixes, and add progress tracking features                       |
 | Week 7   | Launch Preparation               | Set up hosting, landing page, legal disclaimers, and analytics                  |
 | Week 8   | Soft Launch & Feedback           | Beta release, gather feedback, fix issues, and plan next iteration              |
+
+##Challenges:
+- Images and possible short videos to make it visual
+- Best way to take user input for preferences
+- Test for suitability of the workouts
+- Accurately match time-slot and workout durations
 
 
 
