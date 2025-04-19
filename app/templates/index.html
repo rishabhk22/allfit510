@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero-section text-center py-5">
+    <h1 class="display-4">Welcome to AllFit</h1>
+    <p class="lead">Your personalized fitness journey starts here</p>
+    <div class="mt-4">
+        <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg me-2">Get Started</a>
+        <a href="{{ url_for('auth.login') }}" class="btn btn-outline-primary btn-lg">Login</a>
+    </div>
+</div>
+
+<div class="features-section mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h3 class="card-title">Personalized Plans</h3>
+                    <p class="card-text">Get workout plans tailored to your goals, fitness level, and schedule.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h3 class="card-title">Holistic Approach</h3>
+                    <p class="card-text">Combine different fitness methods for balanced overall fitness.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h3 class="card-title">Progress Tracking</h3>
+                    <p class="card-text">Monitor your fitness journey and celebrate your achievements.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="cta-section mt-5 text-center">
+    <h2>Ready to Transform Your Fitness?</h2>
+    <p class="lead">Join thousands of users who have achieved their fitness goals with AllFit</p>
+    <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg">Start Your Journey</a>
+</div>
+{% endblock %} 

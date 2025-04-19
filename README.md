@@ -1,4 +1,106 @@
-# allfit
+# AllFit - Personalized Workout Plans
+
+## Project Description
+AllFit is a user-friendly web application that creates personalized workout plans by blending different fitness methods such as yoga, weight training, cardio, calisthenics, and stretching. It enables users to have a holistic fitness routine to improve different aspects of their health.
+
+## Features
+- User authentication (registration and login)
+- Personalized workout plan generation
+- Progress tracking
+- Responsive and modern UI
+- Multiple fitness methods integration
+
+## Setup Instructions
+
+1. Clone the repository:
+```bash
+git clone https://github.com/shareefjasim/allfit510.git
+cd allfit510
+```
+
+2. Create and activate a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+4. Set up environment variables:
+```bash
+cp .env.example .env
+# Edit .env with your configuration
+```
+
+5. Initialize the database:
+```bash
+flask db init
+flask db migrate
+flask db upgrade
+```
+
+6. Run the application:
+```bash
+flask run
+```
+
+## Project Structure
+```
+allfit510/
+├── app/
+│   ├── static/
+│   │   ├── css/
+│   │   ├── js/
+│   │   └── images/
+│   ├── templates/
+│   ├── models/
+│   ├── routes/
+│   └── forms/
+├── venv/
+├── .env
+├── requirements.txt
+└── README.md
+```
+
+## Progress
+- [x] Project structure setup
+- [x] Virtual environment configuration
+- [x] Basic Flask application setup
+- [x] User authentication system
+- [x] Database models for users and workout plans
+- [x] Basic UI templates
+- [x] Responsive design implementation
+- [ ] Workout plan generation algorithm
+- [ ] Progress tracking dashboard
+- [ ] Exercise database integration
+- [ ] User profile management
+- [ ] Workout plan customization
+- [ ] Mobile app integration (future)
+
+## Technologies Used
+- Python 3.x
+- Flask
+- SQLAlchemy
+- Bootstrap 5
+- JavaScript
+- HTML5/CSS3
+
+## Contributing
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Contact
+- Project Manager: Rishabh Kumar – rkumar23@uw.edu
+- Lead Developer: Shareef Jasim – shareef.abdulnafaa@gmail.com
 
 ## Project Objectives
 To evelop a user-friendly web-app to create personalized workout plans by blending different fitness methods or exercise types such as yoga, weight training, cardio, calisthenics, and stretching. This is to enable users to have a holistic fitness routine to improve different aspects of their health such as strength, mobility, flexibility, endurance to provide balanced overall fitness. 
