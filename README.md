@@ -14,14 +14,19 @@ AllFit is a user-friendly web application that creates personalized workout plan
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/shareefjasim/allfit510.git
+git clone https://github.com/rishabhk22/allfit510.git
 cd allfit510
 ```
 
 2. Create and activate a virtual environment:
 ```bash
+# On macOS/Linux
+python3 -m venv venv
+source venv/bin/activate
+
+# On Windows
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+venv\Scripts\activate
 ```
 
 3. Install dependencies:
@@ -31,12 +36,24 @@ pip install -r requirements.txt
 
 4. Set up environment variables:
 ```bash
-cp .env.example .env
-# Edit .env with your configuration
+# Create a .env file in the root directory
+touch .env  # On Windows: type nul > .env
+```
+
+Add the following to your .env file:
+```
+FLASK_APP=app
+FLASK_ENV=development
+SECRET_KEY=your-secret-key-here
+DATABASE_URL=sqlite:///allfit.db
 ```
 
 5. Initialize the database:
 ```bash
+# Create the database directory
+mkdir -p instance
+
+# Initialize the database
 flask db init
 flask db migrate
 flask db upgrade
@@ -44,8 +61,14 @@ flask db upgrade
 
 6. Run the application:
 ```bash
+# Development mode
 flask run
+
+# Or using the run script
+python run.py
 ```
+
+The application will be available at http://localhost:5000
 
 ## Project Structure
 ```
@@ -59,10 +82,15 @@ allfit510/
 │   ├── models/
 │   ├── routes/
 │   └── forms/
-├── venv/
-├── .env
-├── requirements.txt
-└── README.md
+├── instance/           # Database and instance-specific files
+├── venv/              # Virtual environment
+├── .env               # Environment variables
+├── .env.example       # Example environment variables
+├── .gitignore         # Git ignore file
+├── requirements.txt   # Python dependencies
+├── run.py            # Application entry point
+├── test_app.py       # Test suite
+└── README.md         # Project documentation
 ```
 
 ## Progress
