@@ -10,7 +10,36 @@ AllFit is a user-friendly web application that creates personalized workout plan
 - Responsive and modern UI
 - Multiple fitness methods integration
 
-## Setup Instructions
+## Quick Start
+
+### For Unix/Linux/macOS Users:
+```bash
+# Clone the repository
+git clone https://github.com/rishabhk22/allfit510.git
+cd allfit510
+
+# Make the scripts executable
+chmod +x setup.sh run_allfit.sh
+
+# Run the application (this will handle setup automatically on first run)
+./run_allfit.sh
+```
+
+### For Windows Users:
+```bash
+# Clone the repository
+git clone https://github.com/rishabhk22/allfit510.git
+cd allfit510
+
+# Run the application (this will handle setup automatically on first run)
+run_allfit.bat
+```
+
+The application will be available at: http://localhost:5000
+
+## Manual Setup (Alternative)
+
+If you prefer to set up manually, follow these steps:
 
 1. Clone the repository:
 ```bash
@@ -68,8 +97,6 @@ flask run
 python run.py
 ```
 
-The application will be available at http://localhost:5000
-
 ## Project Structure
 ```
 allfit510/
@@ -90,6 +117,10 @@ allfit510/
 ├── requirements.txt   # Python dependencies
 ├── run.py            # Application entry point
 ├── test_app.py       # Test suite
+├── setup.sh          # Setup script (Unix/Linux/macOS)
+├── setup.bat         # Setup script (Windows)
+├── run_allfit.sh     # Run script (Unix/Linux/macOS)
+├── run_allfit.bat    # Run script (Windows)
 └── README.md         # Project documentation
 ```
 
