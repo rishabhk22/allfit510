@@ -25,9 +25,9 @@ call venv\Scripts\activate.bat
 
 :: Run the application
 call :print_status "Starting AllFit application..."
-echo %GREEN%The application will be available at: http://localhost:5000%NC%
+echo %GREEN%The application will be available at: http://localhost:5001%NC%
 echo %GREEN%Press Ctrl+C to stop the server%NC%
-flask run
+flask run -p 5001
 
 exit /b 0
 

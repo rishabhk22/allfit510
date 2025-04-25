@@ -31,6 +31,6 @@ source venv/bin/activate
 
 # Run the application
 print_status "Starting AllFit application..."
-print_status "The application will be available at: http://localhost:5000"
+print_status "The application will be available at: http://localhost:5001"
 print_status "Press Ctrl+C to stop the server"
-flask run 
+flask run -p 5001 
