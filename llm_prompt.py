@@ -15,11 +15,16 @@ def build_prompt(user_inputs):
     injuries = user_inputs.get('injuries', '').strip() or 'no injuries'
 
     prompt = (
-        f"You are a fitness assistant. Create a weekly workout plan for a [{age}]-year-old "
+        f"You are a fitness assistant. Create a detailed weekly workout plan for a [{age}]-year-old "
         f"[{fitness_level}] user who wants to improve [{goals}] with [{minutes}]-minute sessions, "
         f"[{days}] days per week. Preferred workout styles are [{styles}]. Equipment: [{equipment}]. "
-        f"Note: user has [{injuries}]. The plan should include day-wise sessions with focus area, "
-        f"duration, and 3–5 exercises per day."
+        f"Note: user has [{injuries}]. For each day, provide:\n"
+        f"- The focus area\n"
+        f"- The session duration\n"
+        f"- A warm-up suggestion (1–2 exercises)\n"
+        f"- 3–5 specific exercises, each with a one-line description and a tip\n"
+        f"- A cool-down suggestion (1–2 exercises)\n"
+        f"Format the plan clearly by day."
     )
     return prompt
 
