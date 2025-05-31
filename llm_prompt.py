@@ -1,8 +1,8 @@
 import streamlit as st
-import openai
+from openai import OpenAI
 
-# Load API key securely from Streamlit secrets
-openai.api_key = st.secrets["OPENAI_API_KEY"]
+# Use client-style API introduced in openai>=1.0.0
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 def build_prompt(user_inputs):
     age = user_inputs.get('age', 'N/A')
@@ -24,10 +24,10 @@ def build_prompt(user_inputs):
     return prompt
 
 def call_llm_api(prompt, model="gpt-3.5-turbo"):
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model=model,
         messages=[{"role": "user", "content": prompt}],
         max_tokens=800,
         temperature=0.7,
     )
-    return response.choices[0].message["content"]
+    return response.choices[0].message.content
