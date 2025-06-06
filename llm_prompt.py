@@ -1,5 +1,10 @@
-import openai
-from my_secrets import OPENAI_API_KEY
+import streamlit as st
+from openai import OpenAI
+import calendar
+import re
+
+# Use client-style API introduced in openai>=1.0.0
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 def build_prompt(user_inputs):
     # Basic Information
@@ -34,8 +39,6 @@ def build_prompt(user_inputs):
     diet_type = user_inputs.get('diet_type', 'N/A')
     stress_level = user_inputs.get('stress_level', 'N/A')
     
-    example = '''\n\n---\n\nExample of the desired workout plan format:\n\nDay 1: Legs, shoulders, and abs\nLegs: dumbbell squats — 3 sets of 6–8 reps\nShoulders: standing shoulder press — 3 sets of 6–8 reps\nLegs: dumbbell lunge — 2 sets of 8–10 reps per leg\nShoulders: dumbbell upright rows — 2 sets of 8–10 reps\nHamstrings: Romanian dumbbell deadlift — 2 sets of 6–8 reps\nShoulders: lateral raises — 3 sets of 8–10 reps\nCalves: seated calf raises — 4 sets of 10–12 reps\nAbs: crunches with legs elevated — 3 sets of 10–12 reps\n\nDay 2: Chest and back\nChest: dumbbell bench press or floor press — 3 sets of 6–8 reps\nBack: dumbbell bent-over rows — 3 sets of 6–8 reps\nChest: dumbbell fly — 3 sets of 8–10 reps\nBack: one-arm dumbbell rows — 3 sets of 6–8 reps\nChest: pushups — 3 sets of 10–12 reps\nBack/chest: dumbbell pullovers — 3 sets of 10–12 reps\n\nDay 3: Arms and abs\nBiceps: alternating biceps curls — 3 sets of 8–10 reps per arm\nTriceps: overhead triceps extensions — 3 sets of 8–10 reps\nBiceps: seated dumbbell curls — 2 sets of 10–12 reps per arm\nTriceps: bench dips — 2 sets of 10–12 reps\nBiceps: concentration curls — 3 sets of 10–12 reps\nTriceps: dumbbell kickbacks — 3 sets of 8–10 reps per arm\nAbs: planks — 3 sets of 30-second holds\n\n---\n\n'''
-    
     prompt = (
         f"You are an expert fitness trainer and nutritionist. Create a detailed weekly workout plan for a "
         f"[{age}]-year-old [{gender}] user with the following profile:\n\n"
@@ -59,26 +62,26 @@ def build_prompt(user_inputs):
         f"- Diet Type: {diet_type}\n"
         f"- Stress Level: {stress_level}\n\n"
         f"Please create a detailed weekly workout plan with the following structure for each day:\n"
-        f"1. Day X: [Day Name]\n"
-        f"2. Focus: [Main focus area for the day]\n"
-        f"3. Duration: [Total workout duration]\n"
-        f"4. Intensity: [Workout intensity level]\n"
-        f"5. Exercises: [List 4-6 exercises with sets, reps, rest periods, and a 1-2 sentence description for each exercise. The list should be elaborate and well described.]\n"
-        f"6. Notes: [Any important notes about form, progression, or modifications]\n\n"
+        f"Day X: [Day Name, e.g., Day 1: Monday]\n"
+        f"[Muscle Group]: [Exercise Name] — [Sets] sets of [Reps] reps [per leg/arm if applicable]\n"
+        f"[Muscle Group]: [Exercise Name] — [Sets] sets of [Reps] reps [per leg/arm if applicable]\n"
+        f"... (Include 4-6 exercises per day)\n"
+        f"Rest Day: [Short description or suggestion for rest]\n\n"
         f"Make sure to:\n"
         f"- Strictly follow the workout distribution percentages provided\n"
         f"- Include proper warm-up and cool-down exercises\n"
         f"- Consider the user's fitness level and goals\n"
         f"- Provide modifications for exercises if needed\n"
-        f"- Include rest days appropriately and distribute them for optimal recovery (not all at once, but spaced for best recovery)\n"
+        f"- Include rest days appropriately and distribute them for optimal recovery (not all at once, but spaced for best recovery), following the user's requested days per week.\n"
         f"- Add notes about proper form and technique\n"
         f"- Consider the user's available equipment\n"
         f"- Account for any injuries or medical conditions\n"
         f"- Suggest appropriate intensity levels\n"
         f"- Include progression recommendations\n"
         f"- Ensure the weekly plan reflects the exact workout distribution percentages\n"
-        f"- Make the workout descriptions clear, detailed, and easy to follow.\n"
-        f"{example}"
+        f"- Make the workout descriptions clear, detailed, and easy to follow, like the format provided.\n"
+        f"- Explicitly label rest days with \"Rest Day\".\n"
+        f"- Provide exactly {days} workout days and {7 - days} rest days.\n"
     )
     return prompt
 
