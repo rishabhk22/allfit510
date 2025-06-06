@@ -4,7 +4,7 @@ import calendar
 import re
 
 # Use client-style API introduced in openai>=1.0.0
-client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+client = OpenAI(api_key=st.secrets["openai"]["OPENAI_API_KEY"])
 
 def build_prompt(user_inputs):
     # Basic Information
@@ -86,8 +86,6 @@ def build_prompt(user_inputs):
     return prompt
 
 def call_llm_api(prompt, model="gpt-3.5-turbo"):
-    openai.api_key = OPENAI_API_KEY
-    client = openai.OpenAI(api_key=OPENAI_API_KEY)
     response = client.chat.completions.create(
         model=model,
         messages=[{"role": "user", "content": prompt}],
