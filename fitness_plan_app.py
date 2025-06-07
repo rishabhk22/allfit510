@@ -6,6 +6,7 @@ import numpy as np
 from datetime import datetime
 from llm_prompt import build_prompt, call_llm_api
 import calendar
+import plotly.express as px
 
 # Page config
 st.set_page_config(
@@ -105,19 +106,39 @@ def create_interactive_pie_chart(distribution):
         col1, col2 = st.columns([2, 1])
         
         with col1:
-            # Display the pie chart
-            st.pie_chart(df.set_index('Workout Type'))
+            # Display the pie chart with custom colors
+            colors = ['#4CAF50', '#2196F3', '#FFC107', '#9C27B0', '#FF5722', 
+                     '#00BCD4', '#FF9800', '#795548', '#607D8B', '#E91E63']
+            fig = px.pie(df, values='Percentage', names='Workout Type',
+                        color_discrete_sequence=colors,
+                        hole=0.3)  # Create a donut chart
+            fig.update_traces(textposition='inside', textinfo='percent+label')
+            fig.update_layout(
+                showlegend=True,
+                legend=dict(
+                    orientation="h",
+                    yanchor="bottom",
+                    y=1.02,
+                    xanchor="center",
+                    x=0.5
+                )
+            )
+            st.plotly_chart(fig, use_container_width=True)
         
         with col2:
-            # Display the current percentages
+            # Display the current percentages with color-coded metrics
             st.write("Current Distribution:")
             for workout_type, percentage in distribution.items():
-                st.metric(workout_type, f"{percentage:.1f}%")
+                color = "green" if percentage > 0 else "red"
+                st.metric(workout_type, f"{percentage:.1f}%", 
+                         delta=None, delta_color=color)
             
             # Add a warning if total is not 100%
             total = sum(distribution.values())
             if abs(total - 100) > 0.1:
                 st.error(f"Total: {total:.1f}% (Must equal 100%)")
+            else:
+                st.success(f"Total: {total:.1f}%")
 
 def adjust_distribution(distribution, changed_key, new_value):
     old_value = distribution[changed_key]
@@ -215,29 +236,69 @@ def display_workout_plan(plan, days_per_week):
                     idx += 1
                     break
                 idx += 1
+
+    # Create tabs for each day
     tabs = st.tabs(weekdays)
+    
     for i, day in enumerate(weekdays):
         with tabs[i]:
             session = plan_by_day.get(day)
             if session and (session['exercises'] or session['focus'] or session['duration']):
-                st.markdown(f"### {session['header']}")
-                if session['focus']:
+                # Header with emoji based on focus
+                focus_emoji = {
+                    'strength': '💪',
+                    'cardio': '🏃',
+                    'mobility': '🧘',
+                    'hiit': '⚡',
+                    'recovery': '🔄',
+                    'full body': '🎯',
+                    'core': '🔥'
+                }
+                emoji = next((v for k, v in focus_emoji.items() 
+                            if k in session['focus'].lower()), '📋')
+                
+                st.markdown(f"### {emoji} {session['header']}")
+                
+                # Focus and Type
+                col1, col2 = st.columns(2)
+                with col1:
                     st.markdown(f"**Focus:** {session['focus']}")
+                with col2:
+                    st.markdown(f"**Type:** {'Workout Day' if session['exercises'] else 'Rest Day'}")
+                
                 if session['exercises']:
-                    exercises_df = pd.DataFrame({'Exercise': session['exercises']})
+                    # Exercises section
+                    st.markdown("### 🎯 Exercises")
+                    exercises_df = pd.DataFrame({
+                        'Exercise': session['exercises'],
+                        'Category': [ex.split(':')[0] if ':' in ex else 'General' 
+                                   for ex in session['exercises']]
+                    })
                     st.dataframe(exercises_df, use_container_width=True)
-                st.markdown("### Session Details")
-                if session['duration']:
-                    st.markdown(f"**Duration:** {session['duration']}")
-                if session['intensity']:
-                    st.markdown(f"**Intensity:** {session['intensity']}")
+                
+                # Session Details
+                st.markdown("### ⚙️ Session Details")
+                details_col1, details_col2 = st.columns(2)
+                with details_col1:
+                    if session['duration']:
+                        st.markdown(f"**⏱️ Duration:** {session['duration']}")
+                    if session['intensity']:
+                        st.markdown(f"**💪 Intensity:** {session['intensity']}")
+                
+                # Notes section
                 if session['notes']:
-                    st.markdown("### Notes")
+                    st.markdown("### 📝 Notes")
                     for note in session['notes']:
                         st.info(note)
             else:
+                # Rest day display
                 st.markdown(f"### {day}")
-                st.success("Rest Day 💤")
+                st.markdown("""
+                    <div style='text-align: center; padding: 2rem; background-color: #f0f2f6; border-radius: 10px;'>
+                        <h2>💤 Rest Day</h2>
+                        <p>Take this day to recover and recharge. Consider light stretching or walking.</p>
+                    </div>
+                """, unsafe_allow_html=True)
 
 # Main app
 st.title("💪 AllFit - Your Personal Fitness Planner")

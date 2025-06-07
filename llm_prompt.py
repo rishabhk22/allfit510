@@ -3,8 +3,15 @@ from openai import OpenAI
 import calendar
 import re
 
-# Use client-style API introduced in openai>=1.0.0
-client = OpenAI(api_key=st.secrets["openai"]["OPENAI_API_KEY"])
+# Try to get API key from Streamlit secrets first, then fall back to local secrets
+try:
+    client = OpenAI(api_key=st.secrets["openai"]["OPENAI_API_KEY"])
+except:
+    try:
+        from my_secrets import OPENAI_API_KEY
+        client = OpenAI(api_key=OPENAI_API_KEY)
+    except:
+        raise Exception("OpenAI API key not found in either Streamlit secrets or my_secrets.py")
 
 def build_prompt(user_inputs):
     # Basic Information
@@ -38,6 +45,8 @@ def build_prompt(user_inputs):
     # Lifestyle
     diet_type = user_inputs.get('diet_type', 'N/A')
     stress_level = user_inputs.get('stress_level', 'N/A')
+    
+    example = '''\n\n---\n\nExample of the desired workout plan format:\n\nDay 1: Monday - Strength Training\nFocus: Upper Body Strength\nDuration: 45 minutes\nIntensity: Moderate to High\n\nWarm-up (5-10 minutes):\n- Arm circles: 30 seconds forward, 30 seconds backward\n- Shoulder rolls: 10 reps each direction\n- Light cardio: 3-5 minutes\n\nMain Exercises:\nChest: Dumbbell Bench Press — 3 sets of 8-10 reps\n- Keep feet flat on the floor, maintain natural arch in lower back\n- Lower weights to chest level, push up with controlled movement\n\nBack: Bent-Over Rows — 3 sets of 10-12 reps\n- Maintain flat back, pull elbows back and up\n- Squeeze shoulder blades together at top of movement\n\nShoulders: Overhead Press — 3 sets of 8-10 reps\n- Start with weights at shoulder height\n- Press up until arms are fully extended\n\nBiceps: Hammer Curls — 3 sets of 12-15 reps\n- Keep elbows close to body\n- Maintain controlled movement throughout\n\nTriceps: Tricep Dips — 3 sets of 10-12 reps\n- Keep elbows close to body\n- Lower until upper arms are parallel to floor\n\nCool-down (5-10 minutes):\n- Light stretching for all worked muscle groups\n- Deep breathing exercises\n\nNotes:\n- Rest 60-90 seconds between sets\n- Focus on proper form over weight\n- Stay hydrated throughout the workout\n- Consider using a spotter for heavy lifts\n\n---\n\n'''
     
     prompt = (
         f"You are an expert fitness trainer and nutritionist. Create a detailed weekly workout plan for a "
@@ -113,6 +122,7 @@ def build_prompt(user_inputs):
         f"- Provide exactly {days} workout days and {7 - int(days)} rest days\n"
         f"- Alternate between different focus types throughout the week\n"
         f"- Include at least one complete rest day per week\n"
+        f"{example}"
     )
     return prompt
 
